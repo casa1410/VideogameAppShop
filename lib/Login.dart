@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:videogameappshop/Home.dart';
 
 class LoginCreate extends StatefulWidget {
   @override
@@ -10,6 +11,14 @@ class _LoginCreateState extends State<LoginCreate> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _rememberMe = false;
+  bool _showPassword = false;
+
+    void ir_Home() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const Home()), 
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +45,16 @@ class _LoginCreateState extends State<LoginCreate> {
                   Text(
                     'Iniciar Sesión',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 25,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black,
+                          blurRadius: 5,
+                          offset: Offset(2, 2),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(height: 20),
@@ -73,11 +89,26 @@ class _LoginCreateState extends State<LoginCreate> {
                           SizedBox(height: 16),
                           TextField(
                             controller: _passwordController,
-                            obscureText: true,
+                            obscureText: !_showPassword,
                             decoration: InputDecoration(
                               labelText: 'Ingrese Contraseña',
                               filled: true,
                               fillColor: Colors.grey[200],
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _showPassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Colors.grey,
+                                ),
+                                onPressed: (
+
+                                ) {
+                                  setState(() {
+                                    _showPassword = !_showPassword;
+                                  });
+                                },
+                              ),
                             ),
                           ),
                           SizedBox(height: 16),
@@ -102,7 +133,9 @@ class _LoginCreateState extends State<LoginCreate> {
                             width: double.infinity,
                             height: 50,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                ir_Home();
+                              },
                               style: ElevatedButton.styleFrom(
                                 primary: Color(0xFF5C7EAB),
                                 shape: RoundedRectangleBorder(
@@ -112,8 +145,15 @@ class _LoginCreateState extends State<LoginCreate> {
                               child: Text(
                                 'Iniciar Sesión',
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 17,
                                   color: Colors.white,
+                                  shadows: [
+                                    Shadow(
+                                      color: Colors.black,
+                                      blurRadius: 5,
+                                      offset: Offset(2, 2),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -131,3 +171,4 @@ class _LoginCreateState extends State<LoginCreate> {
     );
   }
 }
+
