@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class LoginCreate extends StatefulWidget {
@@ -18,11 +17,9 @@ class _LoginCreateState extends State<LoginCreate> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(
-              'https://th.bing.com/th/id/R.646868beeb88c58dde8f6d6d33ae8290?rik=k2hnP8p44Khefg&riu=http%3a%2f%2fwww.tudoparatudo.com%2fwp-content%2fuploads%2f2017%2f06%2fvideogame.jpg&ehk=ZY3%2b%2b2jaSHdAw97281wTaVNptfAYSZAf7%2fJkuSu%2ffVQ%3d&risl=&pid=ImgRaw&r=0',
-            ),
+            image: AssetImage("images/Ima2.jpg"),
             fit: BoxFit.cover,
           ),
         ),
@@ -48,12 +45,10 @@ class _LoginCreateState extends State<LoginCreate> {
                   Container(
                     width: 350,
                     decoration: BoxDecoration(
-                      //color: Colors.white.withOpacity(0.7),
                       color: Color(0xFF1B2838),
                       borderRadius: BorderRadius.circular(10.0),
                       boxShadow: [
                         BoxShadow(
-                          //color: Colors.black.withOpacity(0.8),
                           color: Color(0xFF1B2838),
                           spreadRadius: 5,
                           blurRadius: 7,
