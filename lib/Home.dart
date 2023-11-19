@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'DetalleJuego.dart';
+import 'Login.dart';
 
 class JuegoInfo {
   final String imagePath;
@@ -56,7 +57,78 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 63, 95, 126),
+      backgroundColor:Color(0xFF1B2838),
+       appBar: AppBar(
+        backgroundColor:  Color(0xFF1B2838),
+        elevation: 0,
+        title: Center(
+          child: Text(
+            "VIDEOGAME STORE",
+            style: TextStyle(
+              color: Colors.white,
+              shadows: [
+                Shadow(
+                  color: Colors.white,
+                  blurRadius: 5,
+                  offset: Offset(2, 2),
+                ),
+              ],
+            ),
+          ),
+        ),
+        centerTitle: true,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu, color: Colors.white,),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
+      ),
+          drawer: Drawer(
+          width: 120,
+          child: Container(
+            child: ListView(
+              children: [
+                DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Color(0xFF1B2838),
+                  ),
+                  child: Text(
+                    'Opciones',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+                ListTile(
+                  title: Text(
+                    'Cerrar Sesión',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginCreate()),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: Text(
+                    'Carrito de Compras',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  onTap: () {
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,7 +141,7 @@ class _HomeState extends State<Home> {
                 margin: EdgeInsets.only(
                   left: 16,
                   right: 16,
-                  top: 70,
+                  top: 40,
                   bottom: 16,
                 ),
                 decoration: BoxDecoration(
@@ -157,7 +229,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Positioned(
-                top: 45,
+                top: 20,
                 left: 25,
                 child: Text(
                   'DESTACADOS Y RECOMENDADOS',

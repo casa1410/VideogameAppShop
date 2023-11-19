@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:videogameappshop/Home.dart';
+import 'Registrar.dart';
 
 class LoginCreate extends StatefulWidget {
   @override
@@ -13,10 +14,17 @@ class _LoginCreateState extends State<LoginCreate> {
   bool _rememberMe = false;
   bool _showPassword = false;
 
-    void ir_Home() {
+  void ir_Home() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const Home()), 
+    );
+  }
+  
+  void ir_Register() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const Registrar()), 
     );
   }
 
@@ -101,9 +109,7 @@ class _LoginCreateState extends State<LoginCreate> {
                                       : Icons.visibility_off,
                                   color: Colors.grey,
                                 ),
-                                onPressed: (
-
-                                ) {
+                                onPressed: () {
                                   setState(() {
                                     _showPassword = !_showPassword;
                                   });
@@ -158,6 +164,19 @@ class _LoginCreateState extends State<LoginCreate> {
                               ),
                             ),
                           ),
+                          SizedBox(height: 16),
+                          GestureDetector(
+                            onTap: () {
+                              ir_Register();
+                            },
+                            child: Text(
+                              '¿No tienes cuenta? Crea una.',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -171,4 +190,3 @@ class _LoginCreateState extends State<LoginCreate> {
     );
   }
 }
-

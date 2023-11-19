@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:videogameappshop/Home.dart';
 import 'package:videogameappshop/Login.dart';
+import 'package:videogameappshop/Registrar.dart';
 
 void main() {
   runApp(const MyApp());
