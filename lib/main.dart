@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:videogameappshop/Home.dart';
 import 'package:videogameappshop/Login.dart';
+import 'package:videogameappshop/Registrar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: LoginCreate(),
+      home: Home(),
     );
   }
 }

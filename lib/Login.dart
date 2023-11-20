@@ -1,6 +1,7 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:videogameappshop/Home.dart';
+import 'Registrar.dart';
 
 class LoginCreate extends StatefulWidget {
   @override
@@ -11,6 +12,21 @@ class _LoginCreateState extends State<LoginCreate> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _rememberMe = false;
+  bool _showPassword = false;
+
+  void ir_Home() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const Home()), 
+    );
+  }
+  
+  void ir_Register() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const Registrar()), 
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +34,9 @@ class _LoginCreateState extends State<LoginCreate> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(
-              'https://th.bing.com/th/id/R.646868beeb88c58dde8f6d6d33ae8290?rik=k2hnP8p44Khefg&riu=http%3a%2f%2fwww.tudoparatudo.com%2fwp-content%2fuploads%2f2017%2f06%2fvideogame.jpg&ehk=ZY3%2b%2b2jaSHdAw97281wTaVNptfAYSZAf7%2fJkuSu%2ffVQ%3d&risl=&pid=ImgRaw&r=0',
-            ),
+            image: AssetImage("images/Ima2.jpg"),
             fit: BoxFit.cover,
           ),
         ),
@@ -39,21 +53,26 @@ class _LoginCreateState extends State<LoginCreate> {
                   Text(
                     'Iniciar Sesión',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 25,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black,
+                          blurRadius: 5,
+                          offset: Offset(2, 2),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(height: 20),
                   Container(
                     width: 350,
                     decoration: BoxDecoration(
-                      //color: Colors.white.withOpacity(0.7),
                       color: Color(0xFF1B2838),
                       borderRadius: BorderRadius.circular(10.0),
                       boxShadow: [
                         BoxShadow(
-                          //color: Colors.black.withOpacity(0.8),
                           color: Color(0xFF1B2838),
                           spreadRadius: 5,
                           blurRadius: 7,
@@ -78,11 +97,24 @@ class _LoginCreateState extends State<LoginCreate> {
                           SizedBox(height: 16),
                           TextField(
                             controller: _passwordController,
-                            obscureText: true,
+                            obscureText: !_showPassword,
                             decoration: InputDecoration(
                               labelText: 'Ingrese Contraseña',
                               filled: true,
                               fillColor: Colors.grey[200],
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _showPassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Colors.grey,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _showPassword = !_showPassword;
+                                  });
+                                },
+                              ),
                             ),
                           ),
                           SizedBox(height: 16),
@@ -107,7 +139,9 @@ class _LoginCreateState extends State<LoginCreate> {
                             width: double.infinity,
                             height: 50,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                ir_Home();
+                              },
                               style: ElevatedButton.styleFrom(
                                 primary: Color(0xFF5C7EAB),
                                 shape: RoundedRectangleBorder(
@@ -117,9 +151,29 @@ class _LoginCreateState extends State<LoginCreate> {
                               child: Text(
                                 'Iniciar Sesión',
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 17,
                                   color: Colors.white,
+                                  shadows: [
+                                    Shadow(
+                                      color: Colors.black,
+                                      blurRadius: 5,
+                                      offset: Offset(2, 2),
+                                    ),
+                                  ],
                                 ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 16),
+                          GestureDetector(
+                            onTap: () {
+                              ir_Register();
+                            },
+                            child: Text(
+                              '¿No tienes cuenta? Crea una.',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                decoration: TextDecoration.underline,
                               ),
                             ),
                           ),
