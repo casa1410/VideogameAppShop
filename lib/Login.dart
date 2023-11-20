@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:videogameappshop/Home.dart';
+import 'package:http/http.dart' as http;
+import 'Home.dart';
 import 'Registrar.dart';
 
 class LoginCreate extends StatefulWidget {
@@ -9,22 +11,54 @@ class LoginCreate extends StatefulWidget {
 }
 
 class _LoginCreateState extends State<LoginCreate> {
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _rememberMe = false;
   bool _showPassword = false;
 
+  Future<void> _iniciarSesion() async {
+    final url = Uri.parse('http://192.168.20.63/VGSAPI/loginUsuarios.php');
+    final response = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'authorization': 'e1f602bf73cc96f53c10bb7f7953a438fb7b3c0a',
+      },
+      body: {
+        'email': _emailController.text,
+        'contrasena': _passwordController.text,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      final String mensaje = responseData['mensaje'];
+
+      if (mensaje == 'Inicio de sesión exitoso') {
+        // Inicio de sesión exitoso, puedes realizar acciones adicionales si es necesario.
+        print('Inicio de sesión exitoso');
+        ir_Home();
+      } else {
+        // Manejar el caso en que el inicio de sesión falló
+        print('Error al iniciar sesión');
+      }
+    } else {
+      // Manejar el caso en que la solicitud HTTP falló
+      print('Error de conexión al servidor');
+    }
+  }
+
   void ir_Home() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const Home()), 
+      MaterialPageRoute(builder: (context) => const Home()),
     );
   }
-  
+
   void ir_Register() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const Registrar()), 
+      MaterialPageRoute(builder: (context) => const Registrar()),
     );
   }
 
@@ -36,7 +70,7 @@ class _LoginCreateState extends State<LoginCreate> {
         height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/Ima2.jpg"),
+            image: AssetImage('assets/images/Ima2.jpg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -87,7 +121,7 @@ class _LoginCreateState extends State<LoginCreate> {
                         children: [
                           SizedBox(height: 20),
                           TextField(
-                            controller: _usernameController,
+                            controller: _emailController,
                             decoration: InputDecoration(
                               labelText: 'Ingrese Nombre/Usuario',
                               filled: true,
@@ -140,7 +174,7 @@ class _LoginCreateState extends State<LoginCreate> {
                             height: 50,
                             child: ElevatedButton(
                               onPressed: () {
-                                ir_Home();
+                                _iniciarSesion();
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: Color(0xFF5C7EAB),

@@ -28,19 +28,19 @@ class _HomeState extends State<Home> {
   int _currentIndex = 0;
   List<JuegoInfo> juegos = [
     JuegoInfo(
-      imagePath: 'images/Ima1.jpg',
+      imagePath: 'assets/images/Ima1.jpg',
       nombreJuego: 'Super Mario',
       descripcionJuego: 'Recomendado, por que has jugado títulos con etiqueta',
       precio: 'COP 200',
     ),
     JuegoInfo(
-      imagePath: 'images/Ima2.jpg',
+      imagePath: 'assets/images/Ima2.jpg',
       nombreJuego: 'Zelda',
       descripcionJuego: 'Recomendado, por que has jugado títulos con etiqueta',
       precio: 'COP 200',
     ),
     JuegoInfo(
-      imagePath: 'images/Ima3.jpg',
+      imagePath: 'assets/images/Ima3.jpg',
       nombreJuego: 'Pokemon',
       descripcionJuego: 'Recomendado, por que has jugado títulos con etiqueta',
       precio: 'COP 200',
@@ -57,9 +57,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Color(0xFF1B2838),
-       appBar: AppBar(
-        backgroundColor:  Color(0xFF1B2838),
+      backgroundColor: Color(0xFF1B2838),
+      appBar: AppBar(
+        backgroundColor: Color(0xFF1B2838),
         elevation: 0,
         title: Center(
           child: Text(
@@ -80,7 +80,10 @@ class _HomeState extends State<Home> {
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              icon: const Icon(Icons.menu, color: Colors.white,),
+              icon: const Icon(
+                Icons.menu,
+                color: Colors.white,
+              ),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
@@ -88,47 +91,46 @@ class _HomeState extends State<Home> {
           },
         ),
       ),
-          drawer: Drawer(
-          width: 120,
-          child: Container(
-            child: ListView(
-              children: [
-                DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Color(0xFF1B2838),
-                  ),
-                  child: Text(
-                    'Opciones',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                    ),
+      drawer: Drawer(
+        width: 120,
+        child: Container(
+          child: ListView(
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Color(0xFF1B2838),
+                ),
+                child: Text(
+                  'Opciones',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
                   ),
                 ),
-                ListTile(
-                  title: Text(
-                    'Cerrar Sesión',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginCreate()),
-                    );
-                  },
+              ),
+              ListTile(
+                title: Text(
+                  'Cerrar Sesión',
+                  style: TextStyle(fontSize: 14),
                 ),
-                ListTile(
-                  title: Text(
-                    'Carrito de Compras',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  onTap: () {
-                  },
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginCreate()),
+                  );
+                },
+              ),
+              ListTile(
+                title: Text(
+                  'Carrito de Compras',
+                  style: TextStyle(fontSize: 14),
                 ),
-              ],
-            ),
+                onTap: () {},
+              ),
+            ],
           ),
         ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -203,7 +205,9 @@ class _HomeState extends State<Home> {
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: juegos[index].descripcionJuego.substring(12),
+                                    text: juegos[index]
+                                        .descripcionJuego
+                                        .substring(12),
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 12,
@@ -248,12 +252,12 @@ class _HomeState extends State<Home> {
                 Container(
                   margin: EdgeInsets.only(left: 18, top: 5),
                   child: Text(
-                  'OFERTAS ESPECIALES',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
+                    'OFERTAS ESPECIALES',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                    ),
                   ),
-                ),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 6, left: 10),
@@ -265,7 +269,7 @@ class _HomeState extends State<Home> {
                     itemBuilder: (context, index) {
                       return Container(
                         margin: EdgeInsets.symmetric(horizontal: 8),
-                        width: 150, 
+                        width: 150,
                         color: Colors.blue,
                         child: Center(
                           child: Text(
