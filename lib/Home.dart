@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'DetalleJuego.dart';
@@ -25,6 +27,32 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+
+  
+   int _imagenIndex = 0;
+  List<String> _imagePaths = [
+    'assets/images/Ima1.jpg',
+    'assets/images/Ima2.jpg',
+    'assets/images/Ima3.jpg',
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Inicia un temporizador que cambia la imagen cada 3 segundos.
+    Timer.periodic(Duration(seconds: 3), (Timer timer) {
+      if (mounted) {
+        setState(() {
+          _imagenIndex = (_imagenIndex + 1) % _imagePaths.length;
+        });
+      }
+    });
+  }
+
+
+
   int _currentIndex = 0;
   List<JuegoInfo> juegos = [
     JuegoInfo(
@@ -47,6 +75,8 @@ class _HomeState extends State<Home> {
     ),
   ];
 
+  
+
   void juegosdetalle() {
     Navigator.push(
       context,
@@ -61,21 +91,22 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: Color(0xFF1B2838),
         elevation: 0,
-        title: Center(
-          child: Text(
-            "VIDEOGAME STORE",
-            style: TextStyle(
-              color: Colors.white,
-              shadows: [
-                Shadow(
+              title: Padding(
+              padding: EdgeInsets.only(left: 6), 
+              child: Text(
+                "VIDEOGAME STORE",
+                style: TextStyle(
                   color: Colors.white,
-                  blurRadius: 5,
-                  offset: Offset(2, 2),
+                  shadows: [
+                    Shadow(
+                      color: Colors.white,
+                      blurRadius: 5,
+                      offset: Offset(2, 2),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
         centerTitle: true,
         leading: Builder(
           builder: (BuildContext context) {
@@ -91,27 +122,61 @@ class _HomeState extends State<Home> {
           },
         ),
       ),
-      drawer: Drawer(
-        width: 120,
+     drawer: Drawer(
+        width: 105,
         child: Container(
-          child: ListView(
+          child: Column(
             children: [
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Color(0xFF1B2838),
-                ),
-                child: Text(
-                  'Opciones',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
+              Container(
+                height: 5, 
+                color: Color(0xFF1B2838), 
+              ),
+              SizedBox(
+                height: 100, 
+                child: DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Color(0xFF1B2838), 
+                  ),
+                  child: Text(
+                    'Opciones',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
                   ),
                 ),
               ),
               ListTile(
-                title: Text(
-                  'Cerrar Sesión',
-                  style: TextStyle(fontSize: 14),
+                title: Column(
+                  children: [
+                    Icon(
+                      Icons.shopping_cart, 
+                      color: Color(0xFF1B2838),
+                    ),
+                    SizedBox(height: 5), 
+                    Text(
+                      'Carrito de Compras',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+                onTap: () {
+                
+                },
+              ),
+              ListTile(
+                title: Column(
+                  children: [
+                    Icon(
+                      Icons.person_pin, 
+                      color: Color(0xFF1B2838),
+                    ),
+                    SizedBox(height: 5), 
+                    Text(
+                      'ㅤ CerrarㅤSesión',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
                 ),
                 onTap: () {
                   Navigator.push(
@@ -120,20 +185,12 @@ class _HomeState extends State<Home> {
                   );
                 },
               ),
-              ListTile(
-                title: Text(
-                  'Carrito de Compras',
-                  style: TextStyle(fontSize: 14),
-                ),
-                onTap: () {},
-              ),
             ],
           ),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      body: Stack(
+        alignment: Alignment.topRight,
         children: [
           Stack(
             alignment: Alignment.topRight,
@@ -233,8 +290,8 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Positioned(
-                top: 20,
-                left: 25,
+                top: 18,
+                left: 18,
                 child: Text(
                   'DESTACADOS Y RECOMENDADOS',
                   style: TextStyle(
@@ -250,7 +307,7 @@ class _HomeState extends State<Home> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 18, top: 5),
+                  margin: EdgeInsets.only(left: 18, top: 330),
                   child: Text(
                     'OFERTAS ESPECIALES',
                     style: TextStyle(
@@ -260,33 +317,143 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 6, left: 10),
-                  height: 120,
-                  //width: 460,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      return Container(
+                margin: EdgeInsets.only(top: 6, left: 10, right: 6),
+                height: 120,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 3,
+                  itemBuilder: (context, index) {
+                    List<String> imagePaths = [
+                      'assets/images/Ima1.jpg',
+                      'assets/images/Ima2.jpg',  
+                      'assets/images/Ima3.jpg',  
+                    ];
+                    return InkWell(
+                      onTap: () {
+                        switch (index) {
+                          case 0:
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Juego()));
+                            break;
+                          case 1:
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Juego()));
+                            break;
+                          case 2:
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Juego()));
+                            break;
+                          default:
+                            break;
+                        }
+                      },
+                      child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 8),
                         width: 150,
-                        color: Colors.blue,
-                        child: Center(
-                          child: Text(
-                            'Juego ${index + 1}',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
+                        child: Image.asset(
+                          imagePaths[index],
+                          width: 150, 
+                          height: 150,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              ],
+            ),
+          ),
+           Positioned(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 18, top: 500),
+                  child: Text(
+                    'NOTICIAS DE LA SEMANA',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 220,
+                  margin: EdgeInsets.symmetric(horizontal: 14),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 200,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(0),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(0),
+                            child: Image.asset(
+                              _imagePaths[_imagenIndex],
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ),
-                      );
-                    },
+                        SizedBox(width: 10),
+                        Container(
+                          width: 220,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '¡Noticias Importantes!',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  '1. Nueva actualización para "VIDEOGAME STORE": ¡Más niveles y desafíos!',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  '2. Emocionantes descuentos por el Black Friday!',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
           ),
+
         ],
       ),
     );

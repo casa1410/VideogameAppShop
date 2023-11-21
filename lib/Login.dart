@@ -17,7 +17,7 @@ class _LoginCreateState extends State<LoginCreate> {
   bool _showPassword = false;
 
   Future<void> _iniciarSesion() async {
-    final url = Uri.parse('http://192.168.20.63/VGSAPI/loginUsuarios.php');
+    final url = Uri.parse('http://localhost/VGSLAPI/loginUsuarios.php');
     final response = await http.post(
       url,
       headers: <String, String>{
@@ -35,15 +35,15 @@ class _LoginCreateState extends State<LoginCreate> {
       final String mensaje = responseData['mensaje'];
 
       if (mensaje == 'Inicio de sesión exitoso') {
-        // Inicio de sesión exitoso, puedes realizar acciones adicionales si es necesario.
+        
         print('Inicio de sesión exitoso');
         ir_Home();
       } else {
-        // Manejar el caso en que el inicio de sesión falló
+        
         print('Error al iniciar sesión');
       }
     } else {
-      // Manejar el caso en que la solicitud HTTP falló
+      
       print('Error de conexión al servidor');
     }
   }
@@ -121,13 +121,17 @@ class _LoginCreateState extends State<LoginCreate> {
                         children: [
                           SizedBox(height: 20),
                           TextField(
-                            controller: _emailController,
-                            decoration: InputDecoration(
-                              labelText: 'Ingrese Nombre/Usuario',
-                              filled: true,
-                              fillColor: Colors.grey[200],
+                              controller: _emailController,
+                              decoration: InputDecoration(
+                                labelText: 'Ingrese Email',
+                                filled: true,
+                                fillColor: Colors.grey[200],
+                                prefixIcon: Icon(
+                                  Icons.email, 
+                                  color: Colors.grey,
+                                ),
+                              ),
                             ),
-                          ),
                           SizedBox(height: 16),
                           TextField(
                             controller: _passwordController,
@@ -136,11 +140,13 @@ class _LoginCreateState extends State<LoginCreate> {
                               labelText: 'Ingrese Contraseña',
                               filled: true,
                               fillColor: Colors.grey[200],
+                              prefixIcon: Icon(
+                                Icons.lock,
+                                color: Colors.grey,
+                              ),
                               suffixIcon: IconButton(
                                 icon: Icon(
-                                  _showPassword
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
+                                  _showPassword ? Icons.visibility : Icons.visibility_off,
                                   color: Colors.grey,
                                 ),
                                 onPressed: () {
