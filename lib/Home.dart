@@ -168,12 +168,12 @@ class _HomeState extends State<Home> {
                 title: Column(
                   children: [
                     Icon(
-                      Icons.person_pin, 
+                      Icons.exit_to_app , 
                       color: Color(0xFF1B2838),
                     ),
                     SizedBox(height: 5), 
                     Text(
-                      'ㅤ CerrarㅤSesión',
+                      'ㅤCerrar ㅤSesión',
                       style: TextStyle(fontSize: 12),
                     ),
                   ],

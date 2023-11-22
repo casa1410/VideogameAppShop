@@ -23,7 +23,7 @@ class RegistrarUsuarioState extends State<Registrar> {
   bool _showPassword = false;
 
   Future<void> _registrarUsuario() async {
-    final url = Uri.parse('http://localhost/VGSLAPI/registerUsuarios.php');
+    final url = Uri.parse('http://192.168.1.7/VGSLAPI/registerUsuarios.php');
     final response = await http.post(
       url,
       headers: <String, String>{
@@ -158,7 +158,7 @@ class RegistrarUsuarioState extends State<Registrar> {
           children: [
             Positioned.fill(
               child: Image.asset(
-                'assets/images/Ima2.jpg',
+                '/assets/images/Ima2.jpg',
                 fit: BoxFit.cover,
               ),
             ),

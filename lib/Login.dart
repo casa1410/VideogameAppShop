@@ -17,7 +17,7 @@ class _LoginCreateState extends State<LoginCreate> {
   bool _showPassword = false;
 
   Future<void> _iniciarSesion() async {
-    final url = Uri.parse('http://localhost/VGSLAPI/loginUsuarios.php');
+    final url = Uri.parse('http://192.168.1.7/VGSLAPI/loginUsuarios.php');
     final response = await http.post(
       url,
       headers: <String, String>{
