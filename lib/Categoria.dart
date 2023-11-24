@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:videogameappshop/Home.dart';
 
-import 'Categoria.dart';
 import 'DetalleJuego.dart';
 import 'Login.dart';
-import 'Pago.dart';
 
 class JuegoInfo {
   final String imagePath;
@@ -21,15 +20,15 @@ class JuegoInfo {
   });
 }
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class Aventura extends StatefulWidget {
+  const Aventura({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<Aventura> createState() => _Aventura();
 }
 
-class _HomeState extends State<Home> {
-bool isExpanded = false;
+class _Aventura extends State<Aventura> {
+
 
   
    int _imagenIndex = 0;
@@ -124,20 +123,20 @@ bool isExpanded = false;
           },
         ),
       ),
-      drawer: Drawer(
+     drawer: Drawer(
         width: 105,
         child: Container(
           child: Column(
             children: [
               Container(
-                height: 5,
-                color: Color(0xFF1B2838),
+                height: 5, 
+                color: Color(0xFF1B2838), 
               ),
               SizedBox(
-                height: 100,
+                height: 100, 
                 child: DrawerHeader(
                   decoration: BoxDecoration(
-                    color: Color(0xFF1B2838),
+                    color: Color(0xFF1B2838), 
                   ),
                   child: Text(
                     'Opciones',
@@ -152,20 +151,20 @@ bool isExpanded = false;
                 title: Column(
                   children: [
                     Icon(
-                      Icons.shopping_cart,
+                      Icons.home, 
                       color: Color(0xFF1B2838),
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: 5), 
                     Text(
-                      'Carrito de Compras',
+                      'Ir a Home',
                       style: TextStyle(fontSize: 12),
                     ),
                   ],
                 ),
                 onTap: () {
-                  Navigator.push(
+                 Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => PaymentScreen()),
+                    MaterialPageRoute(builder: (context) => Home()),
                   );
                 },
               ),
@@ -173,10 +172,10 @@ bool isExpanded = false;
                 title: Column(
                   children: [
                     Icon(
-                      Icons.exit_to_app,
+                      Icons.exit_to_app , 
                       color: Color(0xFF1B2838),
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: 5), 
                     Text(
                       'ㅤCerrar ㅤSesión',
                       style: TextStyle(fontSize: 12),
@@ -190,46 +189,6 @@ bool isExpanded = false;
                   );
                 },
               ),
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    isExpanded = !isExpanded;
-                  });
-                },
-                child: Column(
-                  children: [
-                    Icon(
-                      Icons.bookmarks,
-                      color: Color(0xFF1B2838),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      'Categorias',
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  ],
-                ),
-              ),
-              if (isExpanded)
-                Column(
-                  children: [
-                    ListTile(
-                    title: Center(
-                      child: Text(
-                        'Aventura',
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Aventura()),
-                      );
-                    },
-                  ),
-                    // Agrega más opciones de categorías según sea necesario
-                  ],
-                ),
             ],
           ),
         ),
@@ -338,7 +297,7 @@ bool isExpanded = false;
                 top: 18,
                 left: 18,
                 child: Text(
-                  'DESTACADOS Y RECOMENDADOS',
+                  'DESTACADOS Y RECOMENDADOS CATEGORIA : ',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 12,
@@ -354,7 +313,7 @@ bool isExpanded = false;
                 Container(
                   margin: EdgeInsets.only(left: 18, top: 330),
                   child: Text(
-                    'OFERTAS ESPECIALES',
+                    'OFERTAS ESPECIALES CATEGORIA: ',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 12,

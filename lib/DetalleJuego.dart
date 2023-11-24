@@ -257,7 +257,7 @@ class _JuegoState extends State<Juego> {
                   
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
+                  primary: Color.fromARGB(255, 98, 177, 100),
                   padding: EdgeInsets.symmetric(horizontal: 32, vertical: 10),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

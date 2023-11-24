@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'Login.dart';
 
@@ -23,7 +24,7 @@ class RegistrarUsuarioState extends State<Registrar> {
   bool _showPassword = false;
 
   Future<void> _registrarUsuario() async {
-    final url = Uri.parse('http://192.168.1.7/VGSLAPI/registerUsuarios.php');
+    final url = Uri.parse('https://aac8-2800-484-6b8d-9500-3064-f918-971c-39e9.ngrok-free.app/VGSAPI/registerUsuarios.php');
     final response = await http.post(
       url,
       headers: <String, String>{
@@ -308,8 +309,12 @@ class RegistrarUsuarioState extends State<Registrar> {
                       },
                     ),
                     SizedBox(height: 12),
-                    TextFormField(
+                    Expanded(child: TextFormField(
                       controller: _numeroCelularController,
+                      keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                       decoration: InputDecoration(
                         labelText: 'Ingrese Número Celular',
                         filled: true,
@@ -327,8 +332,7 @@ class RegistrarUsuarioState extends State<Registrar> {
                         }
                         return null;
                       },
-                    ),
-
+                    ),),
                       SizedBox(height: 12),
                       ElevatedButton(
                         onPressed: () {
