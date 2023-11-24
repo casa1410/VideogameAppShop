@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:videogameappshop/Ambiente.dart';
 import 'Home.dart';
 import 'Registrar.dart';
 
@@ -17,7 +18,7 @@ class _LoginCreateState extends State<LoginCreate> {
   bool _showPassword = false;
 
   Future<void> _iniciarSesion() async {
-    final url = Uri.parse("https://aac8-2800-484-6b8d-9500-3064-f918-971c-39e9.ngrok-free.app/VGSAPI/loginUsuarios.php");
+    final url = Uri.parse(BASE_URL + "/VGSAPI/loginUsuarios.php");
     final response = await http.post(
       url,
       headers: <String, String>{
@@ -35,15 +36,12 @@ class _LoginCreateState extends State<LoginCreate> {
       final String mensaje = responseData['mensaje'];
 
       if (mensaje == 'Inicio de sesión exitoso') {
-        
         print('Inicio de sesión exitoso');
         ir_Home();
       } else {
-        
         print('Error al iniciar sesión');
       }
     } else {
-      
       print('Error de conexión al servidor');
     }
   }
@@ -121,17 +119,17 @@ class _LoginCreateState extends State<LoginCreate> {
                         children: [
                           SizedBox(height: 20),
                           TextField(
-                              controller: _emailController,
-                              decoration: InputDecoration(
-                                labelText: 'Ingrese Email',
-                                filled: true,
-                                fillColor: Colors.grey[200],
-                                prefixIcon: Icon(
-                                  Icons.email, 
-                                  color: Colors.grey,
-                                ),
+                            controller: _emailController,
+                            decoration: InputDecoration(
+                              labelText: 'Ingrese Email',
+                              filled: true,
+                              fillColor: Colors.grey[200],
+                              prefixIcon: Icon(
+                                Icons.email,
+                                color: Colors.grey,
                               ),
                             ),
+                          ),
                           SizedBox(height: 16),
                           TextField(
                             controller: _passwordController,
@@ -146,7 +144,9 @@ class _LoginCreateState extends State<LoginCreate> {
                               ),
                               suffixIcon: IconButton(
                                 icon: Icon(
-                                  _showPassword ? Icons.visibility : Icons.visibility_off,
+                                  _showPassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
                                   color: Colors.grey,
                                 ),
                                 onPressed: () {
