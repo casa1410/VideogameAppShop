@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-
 import 'Login.dart';
 
 class Registrar extends StatefulWidget {
@@ -24,7 +24,7 @@ class RegistrarUsuarioState extends State<Registrar> {
   bool _showPassword = false;
 
   Future<void> _registrarUsuario() async {
-    final url = Uri.parse('http://192.168.20.63/VGSAPI/registerUsuarios.php');
+    final url = Uri.parse('https://aac8-2800-484-6b8d-9500-3064-f918-971c-39e9.ngrok-free.app/VGSAPI/registerUsuarios.php');
     final response = await http.post(
       url,
       headers: <String, String>{
@@ -41,14 +41,15 @@ class RegistrarUsuarioState extends State<Registrar> {
       },
     );
 
-    print(response);
+    
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
       final String mensaje = responseData['mensaje'];
 
       if (mensaje == 'Se registró un usuario') {
-        // Usuario registrado con éxito, puedes realizar acciones adicionales si es necesario.
+        
         print('Usuario registrado con éxito');
+        ir_Login();
       } else {
         // Manejar el caso en que el registro falló
         print('Error al registrar el usuario');
@@ -59,6 +60,13 @@ class RegistrarUsuarioState extends State<Registrar> {
     }
   }
 
+   void ir_Login() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>  LoginCreate()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,21 +74,22 @@ class RegistrarUsuarioState extends State<Registrar> {
       appBar: AppBar(
         backgroundColor: Color(0xFF1B2838),
         elevation: 0,
-        title: Center(
-          child: Text(
-            "VIDEOGAME STORE",
-            style: TextStyle(
-              color: Colors.white,
-              shadows: [
-                Shadow(
+              title: Padding(
+              padding: EdgeInsets.only(left: 6), 
+              child: Text(
+                "VIDEOGAME STORE",
+                style: TextStyle(
                   color: Colors.white,
-                  blurRadius: 5,
-                  offset: Offset(2, 2),
+                  shadows: [
+                    Shadow(
+                      color: Colors.white,
+                      blurRadius: 5,
+                      offset: Offset(2, 2),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
         centerTitle: true,
         leading: Builder(
           builder: (BuildContext context) {
@@ -96,27 +105,43 @@ class RegistrarUsuarioState extends State<Registrar> {
           },
         ),
       ),
-      drawer: Drawer(
-        width: 100,
+        drawer: Drawer(
+        width: 105,
         child: Container(
-          child: ListView(
+          child: Column(
             children: [
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Color(0xFF1B2838),
-                ),
-                child: Text(
-                  'Opciones',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
+              Container(
+                height: 5, 
+                color: Color(0xFF1B2838), 
+              ),
+              SizedBox(
+                height: 100, 
+                child: DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Color(0xFF1B2838), 
+                  ),
+                  child: Text(
+                    'Opciones',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
                   ),
                 ),
               ),
               ListTile(
-                title: Text(
-                  'Iniciar Sesión',
-                  style: TextStyle(fontSize: 14),
+                title: Column(
+                  children: [
+                    Icon(
+                      Icons.person_pin, 
+                      color: Color(0xFF1B2838),
+                    ),
+                    SizedBox(height: 5), 
+                    Text(
+                      'ㅤ IniciarㅤSesión',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
                 ),
                 onTap: () {
                   Navigator.push(
@@ -134,7 +159,7 @@ class RegistrarUsuarioState extends State<Registrar> {
           children: [
             Positioned.fill(
               child: Image.asset(
-                'assets/images/Ima2.jpg',
+                '/assets/images/Ima2.jpg',
                 fit: BoxFit.cover,
               ),
             ),
@@ -149,7 +174,7 @@ class RegistrarUsuarioState extends State<Registrar> {
             Center(
               child: Container(
                 width: 350,
-                height: 486,
+                height: 510,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Color(0xFF1B2838),
@@ -168,126 +193,146 @@ class RegistrarUsuarioState extends State<Registrar> {
                     children: [
                       SizedBox(height: 12),
                       TextFormField(
-                        controller: _nombreController,
-                        decoration: InputDecoration(
-                          labelText: 'Ingrese Nombre',
-                          filled: true,
-                          fillColor: Colors.grey[200],
-                          isDense: true,
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      controller: _nombreController,
+                      decoration: InputDecoration(
+                        labelText: 'Ingrese Nombre',
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: Colors.grey,
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor, ingresa tu nombre';
-                          }
-                          return null;
-                        },
                       ),
-                      SizedBox(height: 12),
-                      TextFormField(
-                        controller: _apellidoController,
-                        decoration: InputDecoration(
-                          labelText: 'Ingrese Apellido',
-                          filled: true,
-                          fillColor: Colors.grey[200],
-                          isDense: true,
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor, ingresa tu nombre';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 12),
+                    TextFormField(
+                      controller: _apellidoController,
+                      decoration: InputDecoration(
+                        labelText: 'Ingrese Apellido',
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: Colors.grey,
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor, ingresa tu apellido';
-                          }
-                          return null;
-                        },
                       ),
-                      SizedBox(height: 12),
-                      TextFormField(
-                        controller: _contrasenaController,
-                        obscureText: !_showPassword,
-                        decoration: InputDecoration(
-                          labelText: 'Ingrese Contraseña',
-                          filled: true,
-                          fillColor: Colors.grey[200],
-                          isDense: true,
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _showPassword
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: Colors.grey,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _showPassword = !_showPassword;
-                              });
-                            },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor, ingresa tu apellido';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 12),
+                    TextFormField(
+                      controller: _contrasenaController,
+                      obscureText: !_showPassword,
+                      decoration: InputDecoration(
+                        labelText: 'Ingrese Contraseña',
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          color: Colors.grey,
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _showPassword ? Icons.visibility : Icons.visibility_off,
+                            color: Colors.grey,
                           ),
+                          onPressed: () {
+                            setState(() {
+                              _showPassword = !_showPassword;
+                            });
+                          },
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor, ingresa tu contraseña';
-                          }
-                          return null;
-                        },
                       ),
-                      SizedBox(height: 12),
-                      TextFormField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          labelText: 'Ingrese Email',
-                          filled: true,
-                          fillColor: Colors.grey[200],
-                          isDense: true,
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor, ingresa tu contraseña';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 12),
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        labelText: 'Ingrese Email',
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: Colors.grey,
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor, ingresa tu email';
-                          }
-                          return null;
-                        },
                       ),
-                      SizedBox(height: 12),
-                      TextFormField(
-                        controller: _direccionController,
-                        decoration: InputDecoration(
-                          labelText: 'Ingrese Dirección',
-                          filled: true,
-                          fillColor: Colors.grey[200],
-                          isDense: true,
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor, ingresa tu email';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 12),
+                    TextFormField(
+                      controller: _direccionController,
+                      decoration: InputDecoration(
+                        labelText: 'Ingrese Dirección',
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        prefixIcon: Icon(
+                          Icons.location_on,
+                          color: Colors.grey,
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor, ingresa tu dirección';
-                          }
-                          return null;
-                        },
                       ),
-                      SizedBox(height: 12),
-                      TextFormField(
-                        controller: _numeroCelularController,
-                        decoration: InputDecoration(
-                          labelText: 'Ingrese Número Celular',
-                          filled: true,
-                          fillColor: Colors.grey[200],
-                          isDense: true,
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor, ingresa tu dirección';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 12),
+                    Expanded(child: TextFormField(
+                      controller: _numeroCelularController,
+                      keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                      decoration: InputDecoration(
+                        labelText: 'Ingrese Número Celular',
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        prefixIcon: Icon(
+                          Icons.phone,
+                          color: Colors.grey,
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor, ingresa tu número celular';
-                          }
-                          return null;
-                        },
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor, ingresa tu número celular';
+                        }
+                        return null;
+                      },
+                    ),),
                       SizedBox(height: 12),
                       ElevatedButton(
                         onPressed: () {

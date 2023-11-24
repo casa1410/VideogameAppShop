@@ -3,6 +3,9 @@ import 'package:videogameappshop/Home.dart';
 import 'package:videogameappshop/Login.dart';
 import 'package:videogameappshop/Registrar.dart';
 
+import 'DetalleJuego.dart';
+import 'Pago.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -34,7 +37,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: LoginCreate(),
+      home: Home(),
     );
   }
 }
