@@ -47,14 +47,22 @@ class RegistrarUsuarioState extends State<Registrar> {
       final String mensaje = responseData['mensaje'];
 
       if (mensaje == 'Se registró un usuario') {
-        print('Usuario registrado con éxito');
+            ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+             content: Text('Usuario Registrado exitosamente'),
+              ),
+            );
         ir_Login();
       } else {
-        // Manejar el caso en que el registro falló
-        print('Error al registrar el usuario');
+       
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+             content: Text('Error al Registrar Usuario'),
+              ),
+            );
       }
     } else {
-      // Manejar el caso en que la solicitud HTTP falló
+     
       print('Error de conexión al servidor');
     }
   }
@@ -158,7 +166,7 @@ class RegistrarUsuarioState extends State<Registrar> {
           children: [
             Positioned.fill(
               child: Image.asset(
-                '/assets/images/Ima2.jpg',
+                'assets/images/Ima2.jpg',
                 fit: BoxFit.cover,
               ),
             ),
@@ -397,4 +405,12 @@ class RegistrarUsuarioState extends State<Registrar> {
       ),
     );
   }
+    void mostrarMensaje(String mensaje) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(mensaje),
+      duration: Duration(seconds: 2), 
+    ),
+  );
+}
 }

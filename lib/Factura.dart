@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'Categoria.dart';
+import 'Informacion.dart';
+import 'Login.dart';
+
 class FacturaScreen extends StatefulWidget {
   @override
   _FacturaScreenState createState() => _FacturaScreenState();
 }
-
+bool isExpanded = false;
 class _FacturaScreenState extends State<FacturaScreen> {
   final TextEditingController _numeroFacturaController = TextEditingController();
   final TextEditingController _nombreClienteController = TextEditingController();
@@ -75,84 +79,235 @@ class _FacturaScreenState extends State<FacturaScreen> {
                   ),
                 ),
               ),
+              ListTile(
+                title: Column(
+                  children: [
+                    Icon(
+                      Icons.info,
+                      color: Color(0xFF1B2838),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'Ayuda',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Ayuda()),
+                  );
+                },
+              ),
+             ListTile(
+              title: Align(
+                alignment: Alignment.center,
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.exit_to_app,
+                      color: Color(0xFF1B2838),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'ㅤCerrar ㅤSesión',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Cerro sesión exitosamente'),
+                ),
+              );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginCreate()),
+                  );
+                },
+              ),
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    isExpanded = !isExpanded;
+                  });
+                },
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.bookmarks,
+                      color: Color(0xFF1B2838),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'Categorias',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+              if (isExpanded)
+                Column(
+                  children: [
+                    ListTile(
+                    title: Center(
+                      child: Text(
+                        'Aventura',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Aventura()),
+                      );
+                    },
+                  ),
+                  
+                  ],
+                ),
             ],
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Factura',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+      body: Stack(
+  children: [
+    Positioned(
+      child: Container(
+        padding: const EdgeInsets.all(16.0), 
+        margin: EdgeInsets.only(top: 50, left: 20),
+                    constraints: BoxConstraints(
+                      maxWidth: 370,
+                    ),
+                    height: 500,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Colors.white.withOpacity(0.3),
+                          Colors.black.withOpacity(0.3),
+                          Colors.white.withOpacity(0.2),
+                          Colors.black.withOpacity(0.1),
+                        ],
+                      ),
+                    ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Factura Electronica',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: _numeroFacturaController,
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      labelText: 'Número de Factura',
+                      filled: true,
+                              fillColor: Colors.grey[200],
+                              prefixIcon: Icon(
+                                Icons.confirmation_number,
+                                color: Colors.grey,
+                              ),
+                    ),
+                    enabled: false,
+                  ),
+                  SizedBox(height: 16),
+                  TextFormField(
+                    controller: _apellidoCLienteController,
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      labelText: 'Nombre del Cliente',
+                      filled: true,
+                              fillColor: Colors.grey[200],
+                              prefixIcon: Icon(
+                                Icons.person,
+                                color: Colors.grey,
+                              ),
+                    ),
+                    enabled: false,
+                  ),
+                  SizedBox(height: 16),
+                  TextFormField(
+                    controller: _nombreClienteController,
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      labelText: 'Apellido del Cliente',
+                      filled: true,
+                              fillColor: Colors.grey[200],
+                              prefixIcon: Icon(
+                                Icons.person,
+                                color: Colors.grey,
+                              ),
+
+                    ),
+                    enabled: false,
+                  ),
+                  SizedBox(height: 16),
+                  TextFormField(
+                    controller: _direccion,
+                    style: TextStyle(color: Colors.white),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    decoration: InputDecoration(
+                      labelText: 'Direccion Cliete',
+                      filled: true,
+                              fillColor: Colors.grey[200],
+                              prefixIcon: Icon(
+                                Icons.location_on,
+                                color: Colors.grey,
+                              ),
+                      
+                    ),
+                    enabled: false,
+                  ),
+                  SizedBox(height: 16),
+                  TextFormField(
+                    controller: _totalController,
+                    style: TextStyle(color: Colors.white),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+
+                            decoration: InputDecoration(
+                              labelText: 'Total valor de Factura',
+                              filled: true,
+                              fillColor: Colors.grey[200],
+                              prefixIcon: Icon(
+                                Icons.attach_money,
+                                color: Colors.grey,
+                              ),
+                            ),
+                    enabled: false,
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 20),
-            TextFormField(
-              controller: _numeroFacturaController,
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                labelText: 'Número de Factura',
-                labelStyle: TextStyle(color: Colors.white),
-              ),
-              enabled: false,
-            ),
-            SizedBox(height: 16),
-            TextFormField(
-              controller: _apellidoCLienteController,
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                labelText: 'Nombre del Cliente',
-                labelStyle: TextStyle(color: Colors.white),
-              ),
-              enabled: false,
-            ),
-            SizedBox(height: 16),
-            TextFormField(
-              controller: _nombreClienteController,
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                labelText: 'Apellido del Cliente',
-                labelStyle: TextStyle(color: Colors.white),
-              ),
-              enabled: false,
-            ),
-            SizedBox(height: 16),
-            TextFormField(
-              controller: _direccion,
-              style: TextStyle(color: Colors.white),
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
-              ],
-              decoration: InputDecoration(
-                labelText: 'Direccion Cliete',
-                labelStyle: TextStyle(color: Colors.white),
-              ),
-              enabled: false,
-            ),
-            SizedBox(height: 16),
-            TextFormField(
-              controller: _totalController,
-              style: TextStyle(color: Colors.white),
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
-              ],
-              decoration: InputDecoration(
-                labelText: 'Total',
-                labelStyle: TextStyle(color: Colors.white),
-              ),
-              enabled: false,
-            ),
-          ],
-        ),
-      ),
+          ),
+  ],
+),
+
     );
   }
 

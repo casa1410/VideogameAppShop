@@ -3,39 +3,60 @@ import 'package:flutter/services.dart';
 import 'package:videogameappshop/Home.dart';
 import 'package:videogameappshop/Login.dart';
 
-class PaymentScreen extends StatelessWidget {
+class JuegoInfo {
+  final String imagePath;
+  final String nombreJuego;
+  final String descripcionJuego;
+  final String precio;
+
+  JuegoInfo({
+    required this.imagePath,
+    required this.nombreJuego,
+    required this.descripcionJuego,
+    required this.precio,
+  });
+}
+
+class PaymentScreen extends StatefulWidget {
+  final String nombres, imagePath, precios;
+
+  PaymentScreen(this.nombres, this.imagePath, this.precios, {Key? key})
+      : super(key: key);
+
+  @override
+  _PaymentScreenState createState() => _PaymentScreenState();
+}
+
+class _PaymentScreenState extends State<PaymentScreen> {
+  int _currentIndex = 0;
+
+  late List<JuegoInfo> juegos;
+
+  @override
+  void initState() {
+    super.initState();
+
+    juegos = [
+      JuegoInfo(
+        imagePath: this.widget.imagePath,
+        nombreJuego: this.widget.nombres,
+        descripcionJuego: 'Estado       Reservado',
+        precio: this.widget.precios,
+      ),
+    ];
+  }
+
+
+
   final String gameName = "Nombre del juego";
   final double price = 19.99;
   final TextEditingController _visa = TextEditingController();
   final TextEditingController _cvv = TextEditingController();
   final TextEditingController _expiryDate = TextEditingController();
 
-  int _currentIndex = 0;
-  List<JuegoInfo> juegos = [
-    JuegoInfo(
-      imagePath: 'assets/images/Ima1.jpg',
-      nombreJuego: 'Super Mario',
-      descripcionJuego:
-          'Estado       Reservado',
-      precio: 'COP 200',
-    ),
-    JuegoInfo(
-      imagePath: 'assets/images/Ima2.jpg',
-      nombreJuego: 'Zelda',
-      descripcionJuego:
-          'Estado       Reservado',
-      precio: 'COP 200',
-    ),
-    JuegoInfo(
-      imagePath: 'assets/images/Ima3.jpg',
-      nombreJuego: 'Pokemon',
-      descripcionJuego:
-          'Estado       Reservado',
-      precio: 'COP 200',
-    ),
-  ];
 
-  PaymentScreen({Key? key}) : super(key: key);
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -152,88 +173,100 @@ class PaymentScreen extends StatelessWidget {
             height: 265,
             width: 380,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.3),
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3),
-                ),
-              ],
-            ),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: juegos.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 8.0,
-                    ),
-                    width: 150,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 160,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(juegos[index].imagePath),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          juegos[index].nombreJuego,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(height: 3),
-                        RichText(
-                          text: TextSpan(
-                            text: 'Estado',
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 12,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: juegos[index]
-                                    .descripcionJuego
-                                    .substring(12),
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 6),
-                        Text(
-                          '\$${juegos[index].precio}',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
-                          textAlign: TextAlign.center,
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: Offset(0, 3),
                         ),
                       ],
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Colors.white.withOpacity(0.3),
+                          Colors.black.withOpacity(0.3),
+                          Colors.white.withOpacity(0.2),
+                          Colors.black.withOpacity(0.1),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
+           child: Center(
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            itemCount: juegos.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+              child: Container(
+                margin: EdgeInsets.symmetric(
+                  horizontal: 12.0,
+                  vertical: 8.0,
+                ),
+                width: 150,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 170,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(juegos[index].imagePath),
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      juegos[index].nombreJuego,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 3),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Estado',
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 12,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: juegos[index]
+                                .descripcionJuego
+                                .substring(12),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      '\$${juegos[index].precio} ' + 'COP',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
           ),
+
           Container(
             margin: EdgeInsets.only(left: 16, top: 20),
             child: Text(
@@ -373,16 +406,5 @@ class PaymentScreen extends StatelessWidget {
   }
 }
 
-class JuegoInfo {
-  final String imagePath;
-  final String nombreJuego;
-  final String descripcionJuego;
-  final String precio;
 
-  JuegoInfo({
-    required this.imagePath,
-    required this.nombreJuego,
-    required this.descripcionJuego,
-    required this.precio,
-  });
-}
+

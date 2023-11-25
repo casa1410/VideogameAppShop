@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:videogameappshop/Home.dart';
 
 import 'DetalleJuego.dart';
+import 'Informacion.dart';
 import 'Login.dart';
 
 class JuegoInfo {
+  final String idJuego;
   final String imagePath;
   final String nombreJuego;
   final String descripcionJuego;
   final String precio;
 
   JuegoInfo({
+    required this.idJuego,
     required this.imagePath,
     required this.nombreJuego,
     required this.descripcionJuego,
@@ -42,7 +45,7 @@ class _Aventura extends State<Aventura> {
   void initState() {
     super.initState();
 
-    // Inicia un temporizador que cambia la imagen cada 3 segundos.
+    
     Timer.periodic(Duration(seconds: 3), (Timer timer) {
       if (mounted) {
         setState(() {
@@ -57,33 +60,39 @@ class _Aventura extends State<Aventura> {
   int _currentIndex = 0;
   List<JuegoInfo> juegos = [
     JuegoInfo(
-      imagePath: 'assets/images/Ima1.jpg',
-      nombreJuego: 'Super Mario',
+      idJuego: '0',
+      imagePath: 'assets/images/mario.jpg',
+      nombreJuego: 'Mario Bros',
       descripcionJuego: 'Recomendado, por que has jugado títulos con etiqueta',
-      precio: 'COP 200',
+      precio: 'COP 300',
     ),
     JuegoInfo(
-      imagePath: 'assets/images/Ima2.jpg',
-      nombreJuego: 'Zelda',
+       idJuego: '1',
+      imagePath: 'assets/images/zelda.jpg',
+      nombreJuego: 'The Legend of Zelda',
       descripcionJuego: 'Recomendado, por que has jugado títulos con etiqueta',
-      precio: 'COP 200',
+      precio: 'COP 600',
     ),
     JuegoInfo(
-      imagePath: 'assets/images/Ima3.jpg',
+      idJuego: '2',
+      imagePath: 'assets/images/Pokemon.jpg',
       nombreJuego: 'Pokemon',
       descripcionJuego: 'Recomendado, por que has jugado títulos con etiqueta',
-      precio: 'COP 200',
+      precio: 'COP 1000',
     ),
   ];
 
+
   
 
-  void juegosdetalle() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const Juego()),
-    );
-  }
+  void juegosdetalle(String idJuego) {
+  //Navigator.push(
+    //context,
+    //MaterialPageRoute(
+      //builder: (context) => Juego(idJuego),
+    //),
+  //);
+}
 
   @override
   Widget build(BuildContext context) {
@@ -172,6 +181,27 @@ class _Aventura extends State<Aventura> {
                 title: Column(
                   children: [
                     Icon(
+                      Icons.info,
+                      color: Color(0xFF1B2838),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'Ayuda',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Ayuda()),
+                  );
+                },
+              ),
+              ListTile(
+                title: Column(
+                  children: [
+                    Icon(
                       Icons.exit_to_app , 
                       color: Color(0xFF1B2838),
                     ),
@@ -183,6 +213,12 @@ class _Aventura extends State<Aventura> {
                   ],
                 ),
                 onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Cerró sesión exitosamente'),
+                    ),
+                    
+                  );
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => LoginCreate()),
@@ -225,7 +261,7 @@ class _Aventura extends State<Aventura> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        juegosdetalle();
+                        juegosdetalle(juegos[index].idJuego);
                       },
                       child: Container(
                         margin: EdgeInsets.symmetric(
@@ -251,7 +287,7 @@ class _Aventura extends State<Aventura> {
                               juegos[index].nombreJuego,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 16,
+                                fontSize: 14,
                                 fontWeight: FontWeight.bold,
                               ),
                               textAlign: TextAlign.center,
@@ -297,7 +333,7 @@ class _Aventura extends State<Aventura> {
                 top: 18,
                 left: 18,
                 child: Text(
-                  'DESTACADOS Y RECOMENDADOS CATEGORIA : ',
+                  'DESTACADOS Y RECOMENDADOS CATEGORIA : AVENTURA',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 12,
@@ -313,7 +349,7 @@ class _Aventura extends State<Aventura> {
                 Container(
                   margin: EdgeInsets.only(left: 18, top: 330),
                   child: Text(
-                    'OFERTAS ESPECIALES CATEGORIA: ',
+                    'OFERTAS ESPECIALES CATEGORIA: AVENTURA',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 12,
@@ -328,21 +364,21 @@ class _Aventura extends State<Aventura> {
                   itemCount: 3,
                   itemBuilder: (context, index) {
                     List<String> imagePaths = [
-                      'assets/images/Ima1.jpg',
-                      'assets/images/Ima2.jpg',  
-                      'assets/images/Ima3.jpg',  
+                      'assets/images/persona5.jpg',
+                      'assets/images/zelda.jpg',  
+                      'assets/images/Pokemon.jpg',  
                     ];
                     return InkWell(
                       onTap: () {
                         switch (index) {
                           case 0:
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => Juego()));
+                            juegosdetalle(juegos[index].idJuego);
                             break;
                           case 1:
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => Juego()));
+                            juegosdetalle(juegos[index].idJuego);
                             break;
                           case 2:
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => Juego()));
+                           juegosdetalle(juegos[index].idJuego);
                             break;
                           default:
                             break;

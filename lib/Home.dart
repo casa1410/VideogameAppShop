@@ -4,16 +4,19 @@ import 'package:flutter/material.dart';
 
 import 'Categoria.dart';
 import 'DetalleJuego.dart';
+import 'Informacion.dart';
 import 'Login.dart';
 import 'Pago.dart';
 
 class JuegoInfo {
+  final String idJuego;
   final String imagePath;
   final String nombreJuego;
   final String descripcionJuego;
   final String precio;
 
   JuegoInfo({
+    required this.idJuego,
     required this.imagePath,
     required this.nombreJuego,
     required this.descripcionJuego,
@@ -43,7 +46,7 @@ bool isExpanded = false;
   void initState() {
     super.initState();
 
-    // Inicia un temporizador que cambia la imagen cada 3 segundos.
+    
     Timer.periodic(Duration(seconds: 3), (Timer timer) {
       if (mounted) {
         setState(() {
@@ -58,33 +61,59 @@ bool isExpanded = false;
   int _currentIndex = 0;
   List<JuegoInfo> juegos = [
     JuegoInfo(
-      imagePath: 'assets/images/Ima1.jpg',
-      nombreJuego: 'Super Mario',
+      idJuego: '0',
+      imagePath: 'assets/images/mario.jpg',
+      nombreJuego: 'Mario Bros',
       descripcionJuego: 'Recomendado, por que has jugado títulos con etiqueta',
-      precio: 'COP 200',
+      precio: 'COP 300',
     ),
     JuegoInfo(
-      imagePath: 'assets/images/Ima2.jpg',
-      nombreJuego: 'Zelda',
+       idJuego: '1',
+      imagePath: 'assets/images/zelda.jpg',
+      nombreJuego: 'The Legend of Zelda',
       descripcionJuego: 'Recomendado, por que has jugado títulos con etiqueta',
-      precio: 'COP 200',
+      precio: 'COP 600',
     ),
     JuegoInfo(
-      imagePath: 'assets/images/Ima3.jpg',
+      idJuego: '2',
+      imagePath: 'assets/images/Pokemon.jpg',
       nombreJuego: 'Pokemon',
       descripcionJuego: 'Recomendado, por que has jugado títulos con etiqueta',
-      precio: 'COP 200',
+      precio: 'COP 1000',
+    ),
+    JuegoInfo(
+      idJuego: '3',
+      imagePath: 'assets/images/motal.jpg',
+      nombreJuego: 'Mortal Kombat',
+      descripcionJuego: 'Recomendado, por que has jugado títulos con etiqueta',
+      precio: 'COP 400',
+    ),
+    JuegoInfo(
+      idJuego: '4',
+      imagePath: 'assets/images/call.jpg',
+      nombreJuego: 'Call of Duty',
+      descripcionJuego: 'Recomendado, por que has jugado títulos con etiqueta',
+      precio: 'COP 800',
+    ),
+    JuegoInfo(
+      idJuego: '5',
+      imagePath: 'assets/images/persona5.jpg',
+      nombreJuego: 'Persona 5',
+      descripcionJuego: 'Recomendado, por que has jugado títulos con etiqueta',
+      precio: 'COP 900',
     ),
   ];
 
   
 
-  void juegosdetalle() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const Juego()),
-    );
-  }
+void juegosdetalle(String idJuego,imagePath) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => Juego(idJuego,imagePath),
+    ),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -152,12 +181,12 @@ bool isExpanded = false;
                 title: Column(
                   children: [
                     Icon(
-                      Icons.shopping_cart,
+                      Icons.info,
                       color: Color(0xFF1B2838),
                     ),
                     SizedBox(height: 5),
                     Text(
-                      'Carrito de Compras',
+                      'Ayuda',
                       style: TextStyle(fontSize: 12),
                     ),
                   ],
@@ -165,7 +194,7 @@ bool isExpanded = false;
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => PaymentScreen()),
+                    MaterialPageRoute(builder: (context) => Ayuda()),
                   );
                 },
               ),
@@ -180,13 +209,18 @@ bool isExpanded = false;
                     ),
                     SizedBox(height: 5),
                     Text(
-                      'ㅤCerrar ㅤㅤSesión',
+                      'ㅤCerrar ㅤSesión',
                       style: TextStyle(fontSize: 12),
                     ),
                   ],
                 ),
               ),
                 onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Cerro sesión exitosamente'),
+                ),
+              );
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => LoginCreate()),
@@ -230,7 +264,7 @@ bool isExpanded = false;
                       );
                     },
                   ),
-                    // Agrega más opciones de categorías según sea necesario
+                  
                   ],
                 ),
             ],
@@ -269,7 +303,7 @@ bool isExpanded = false;
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        juegosdetalle();
+                        juegosdetalle(juegos[index].idJuego,juegos[index].imagePath);
                       },
                       child: Container(
                         margin: EdgeInsets.symmetric(
@@ -295,7 +329,7 @@ bool isExpanded = false;
                               juegos[index].nombreJuego,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 16,
+                                fontSize: 14,
                                 fontWeight: FontWeight.bold,
                               ),
                               textAlign: TextAlign.center,
@@ -372,21 +406,21 @@ bool isExpanded = false;
                   itemCount: 3,
                   itemBuilder: (context, index) {
                     List<String> imagePaths = [
-                      'assets/images/Ima1.jpg',
-                      'assets/images/Ima2.jpg',  
-                      'assets/images/Ima3.jpg',  
+                      'assets/images/call.jpg',
+                      'assets/images/motal.jpg',  
+                      'assets/images/persona5.jpg',  
                     ];
                     return InkWell(
                       onTap: () {
                         switch (index) {
                           case 0:
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => Juego()));
+                            //uegosdetalle(juegos[index].idJuego);
                             break;
                           case 1:
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => Juego()));
+                            //juegosdetalle(juegos[index].idJuego);
                             break;
                           case 2:
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => Juego()));
+                           //juegosdetalle(juegos[index].idJuego);
                             break;
                           default:
                             break;
@@ -506,4 +540,12 @@ bool isExpanded = false;
       ),
     );
   }
+  void mostrarMensaje(String mensaje) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(mensaje),
+      duration: Duration(seconds: 2), 
+    ),
+  );
+}
 }

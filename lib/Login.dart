@@ -18,7 +18,8 @@ class _LoginCreateState extends State<LoginCreate> {
   bool _showPassword = false;
 
   Future<void> _iniciarSesion() async {
-    final url = Uri.parse(BASE_URL + "/VGSAPI/loginUsuarios.php");
+    if(_passwordController != null &&  _emailController != null){
+      final url = Uri.parse(BASE_URL + "/VGSAPI/loginUsuarios.php");
     final response = await http.post(
       url,
       headers: <String, String>{
@@ -30,6 +31,8 @@ class _LoginCreateState extends State<LoginCreate> {
         'contrasena': _passwordController.text,
       },
     );
+    
+    
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
@@ -44,14 +47,30 @@ class _LoginCreateState extends State<LoginCreate> {
     } else {
       print('Error de conexión al servidor');
     }
+  }else{
+    ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text('Por favor ingrese correctamente las credenciales'),
+    ),
+  );
   }
+}
 
-  void ir_Home() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const Home()),
-    );
-  }
+void ir_Home() {
+  
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text('Inicio sesión exitosamente'),
+    ),
+  );
+
+  
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const Home()),
+  );
+}
+
 
   void ir_Register() {
     Navigator.push(
@@ -118,7 +137,7 @@ class _LoginCreateState extends State<LoginCreate> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SizedBox(height: 20),
-                          TextField(
+                          TextFormField(
                             controller: _emailController,
                             decoration: InputDecoration(
                               labelText: 'Ingrese Email',
@@ -129,9 +148,16 @@ class _LoginCreateState extends State<LoginCreate> {
                                 color: Colors.grey,
                               ),
                             ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Por favor, ingresa tu coreo';
+                              }
+                              return null;
+                            },
                           ),
+                          
                           SizedBox(height: 16),
-                          TextField(
+                          TextFormField(
                             controller: _passwordController,
                             obscureText: !_showPassword,
                             decoration: InputDecoration(
@@ -156,6 +182,12 @@ class _LoginCreateState extends State<LoginCreate> {
                                 },
                               ),
                             ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Por favor, ingresa tu contraseña';
+                              }
+                              return null;
+                            },
                           ),
                           SizedBox(height: 16),
                           Row(
@@ -229,4 +261,12 @@ class _LoginCreateState extends State<LoginCreate> {
       ),
     );
   }
+  void mostrarMensaje(String mensaje) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(mensaje),
+      duration: Duration(seconds: 2), 
+    ),
+  );
+}
 }
