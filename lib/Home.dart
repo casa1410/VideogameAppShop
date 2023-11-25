@@ -169,8 +169,10 @@ bool isExpanded = false;
                   );
                 },
               ),
-              ListTile(
-                title: Column(
+             ListTile(
+              title: Align(
+                alignment: Alignment.center,
+                child: Column(
                   children: [
                     Icon(
                       Icons.exit_to_app,
@@ -178,11 +180,12 @@ bool isExpanded = false;
                     ),
                     SizedBox(height: 5),
                     Text(
-                      'ㅤCerrar ㅤSesión',
+                      'ㅤCerrar ㅤㅤSesión',
                       style: TextStyle(fontSize: 12),
                     ),
                   ],
                 ),
+              ),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -421,7 +424,7 @@ bool isExpanded = false;
                   ),
                 ),
                 Container(
-                  height: 220,
+                  height: 200,
                   margin: EdgeInsets.symmetric(horizontal: 14),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
