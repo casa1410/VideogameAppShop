@@ -48,22 +48,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
     ];
   }
 
-
-
   final String gameName = "Nombre del juego";
   final double price = 19.99;
   final TextEditingController _visa = TextEditingController();
   final TextEditingController _cvv = TextEditingController();
   final TextEditingController _expiryDate = TextEditingController();
 
-
-
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xFF1B2838),
       appBar: AppBar(
         backgroundColor: Color(0xFF1B2838),
@@ -153,7 +147,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     ),
                     SizedBox(height: 5),
                     Text(
-                      'ㅤCerrar ㅤSesión',
+                      'ㅤCerrar ㅤㅤSesión',
                       style: TextStyle(fontSize: 12),
                     ),
                   ],
@@ -181,100 +175,99 @@ class _PaymentScreenState extends State<PaymentScreen> {
             height: 265,
             width: 380,
             decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.3),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          offset: Offset(0, 3),
-                        ),
-                      ],
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Colors.white.withOpacity(0.3),
-                          Colors.black.withOpacity(0.3),
-                          Colors.white.withOpacity(0.2),
-                          Colors.black.withOpacity(0.1),
-                        ],
-                      ),
-                    ),
-           child: Center(
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: juegos.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-              child: Container(
-                margin: EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 8.0,
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.3),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset(0, 3),
                 ),
-                width: 150,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 170,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(juegos[index].imagePath),
-                          fit: BoxFit.cover,
-                        ),
-                        borderRadius: BorderRadius.circular(5),
+              ],
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.white.withOpacity(0.3),
+                  Colors.black.withOpacity(0.3),
+                  Colors.white.withOpacity(0.2),
+                  Colors.black.withOpacity(0.1),
+                ],
+              ),
+            ),
+            child: Center(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: juegos.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    child: Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                        vertical: 8.0,
                       ),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      juegos[index].nombreJuego,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: 3),
-                    RichText(
-                      text: TextSpan(
-                        text: 'Estado',
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 12,
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: juegos[index]
-                                .descripcionJuego
-                                .substring(12),
+                      width: 150,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 170,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(juegos[index].imagePath),
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            juegos[index].nombreJuego,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 3),
+                          RichText(
+                            text: TextSpan(
+                              text: 'Estado',
+                              style: TextStyle(
+                                color: Colors.green,
+                                fontSize: 12,
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: juegos[index]
+                                      .descripcionJuego
+                                      .substring(12),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 6),
+                          Text(
+                            '\$${juegos[index].precio} ' + 'COP',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 12,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 6),
-                    Text(
-                      '\$${juegos[index].precio} ' + 'COP',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
-            );
-          },
-        ),
-      ),
+            ),
           ),
-
           Container(
             margin: EdgeInsets.only(left: 16, top: 20),
             child: Text(
@@ -285,7 +278,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
             ),
           ),
-           Container(
+          Container(
             margin: EdgeInsets.only(left: 16, top: 335),
             child: Text(
               'FORMATO DE PAGO',
@@ -347,7 +340,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         child: TextField(
                           controller: _expiryDate,
                           keyboardType: TextInputType.text,
-                          
                           decoration: InputDecoration(
                             labelText: 'Fecha',
                             filled: true,
@@ -383,33 +375,34 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
-                 if (_cvv.text.isNotEmpty && _expiryDate.text.isNotEmpty && _visa.text.isNotEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Pago realizado con éxito'),
-                    ),
-                  );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => FacturaScreen()),
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Ingrese bien las credenciales'),
-                    ),
-                  );
-                }
-
-
+                      if (_cvv.text.isNotEmpty &&
+                          _expiryDate.text.isNotEmpty &&
+                          _visa.text.isNotEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Pago realizado con éxito'),
+                          ),
+                        );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FacturaScreen()),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Ingrese bien las credenciales'),
+                          ),
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Color.fromARGB(255, 98, 177, 100),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 20),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 16.0, horizontal: 20),
                     ),
                     child: Text(
                       'Realizar Pago',
@@ -425,6 +418,3 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 }
-
-
-

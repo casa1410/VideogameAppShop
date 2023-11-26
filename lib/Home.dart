@@ -32,10 +32,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-bool isExpanded = false;
+  bool isExpanded = false;
 
-  
-   int _imagenIndex = 0;
+  int _imagenIndex = 0;
   List<String> _imagePaths = [
     'assets/images/Ima1.jpg',
     'assets/images/Ima2.jpg',
@@ -46,7 +45,6 @@ bool isExpanded = false;
   void initState() {
     super.initState();
 
-    
     Timer.periodic(Duration(seconds: 3), (Timer timer) {
       if (mounted) {
         setState(() {
@@ -55,8 +53,6 @@ bool isExpanded = false;
       }
     });
   }
-
-
 
   int _currentIndex = 0;
   List<JuegoInfo> juegos = [
@@ -68,7 +64,7 @@ bool isExpanded = false;
       precio: 'COP 300',
     ),
     JuegoInfo(
-       idJuego: '1',
+      idJuego: '1',
       imagePath: 'assets/images/zelda.jpg',
       nombreJuego: 'The Legend of Zelda',
       descripcionJuego: 'Recomendado, por que has jugado títulos con etiqueta',
@@ -104,16 +100,14 @@ bool isExpanded = false;
     ),
   ];
 
-  
-
-void juegosdetalle(String idJuego,imagePath) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => Juego(idJuego,imagePath),
-    ),
-  );
-}
+  void juegosdetalle(String idJuego, imagePath) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Juego(idJuego, imagePath),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,22 +116,22 @@ void juegosdetalle(String idJuego,imagePath) {
       appBar: AppBar(
         backgroundColor: Color(0xFF1B2838),
         elevation: 0,
-              title: Padding(
-              padding: EdgeInsets.only(left: 6), 
-              child: Text(
-                "VIDEOGAME STORE",
-                style: TextStyle(
+        title: Padding(
+          padding: EdgeInsets.only(left: 6),
+          child: Text(
+            "VIDEOGAME STORE",
+            style: TextStyle(
+              color: Colors.white,
+              shadows: [
+                Shadow(
                   color: Colors.white,
-                  shadows: [
-                    Shadow(
-                      color: Colors.white,
-                      blurRadius: 5,
-                      offset: Offset(2, 2),
-                    ),
-                  ],
+                  blurRadius: 5,
+                  offset: Offset(2, 2),
                 ),
-              ),
+              ],
             ),
+          ),
+        ),
         centerTitle: true,
         leading: Builder(
           builder: (BuildContext context) {
@@ -198,29 +192,29 @@ void juegosdetalle(String idJuego,imagePath) {
                   );
                 },
               ),
-             ListTile(
-              title: Align(
-                alignment: Alignment.center,
-                child: Column(
-                  children: [
-                    Icon(
-                      Icons.exit_to_app,
-                      color: Color(0xFF1B2838),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      'ㅤCerrar ㅤSesión',
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  ],
+              ListTile(
+                title: Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.exit_to_app,
+                        color: Color(0xFF1B2838),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        'ㅤCerrar ㅤㅤSesión',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
                 onTap: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Cerro sesión exitosamente'),
-                ),
-              );
+                    SnackBar(
+                      content: Text('Cerro sesión exitosamente'),
+                    ),
+                  );
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => LoginCreate()),
@@ -251,20 +245,19 @@ void juegosdetalle(String idJuego,imagePath) {
                 Column(
                   children: [
                     ListTile(
-                    title: Center(
-                      child: Text(
-                        'Aventura',
-                        style: TextStyle(fontSize: 12),
+                      title: Center(
+                        child: Text(
+                          'Aventura',
+                          style: TextStyle(fontSize: 12),
+                        ),
                       ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Aventura()),
+                        );
+                      },
                     ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Aventura()),
-                      );
-                    },
-                  ),
-                  
                   ],
                 ),
             ],
@@ -303,7 +296,8 @@ void juegosdetalle(String idJuego,imagePath) {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        juegosdetalle(juegos[index].idJuego,juegos[index].imagePath);
+                        juegosdetalle(
+                            juegos[index].idJuego, juegos[index].imagePath);
                       },
                       child: Container(
                         margin: EdgeInsets.symmetric(
@@ -399,51 +393,51 @@ void juegosdetalle(String idJuego,imagePath) {
                   ),
                 ),
                 Container(
-                margin: EdgeInsets.only(top: 6, left: 10, right: 6),
-                height: 120,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    List<String> imagePaths = [
-                      'assets/images/call.jpg',
-                      'assets/images/motal.jpg',  
-                      'assets/images/persona5.jpg',  
-                    ];
-                    return InkWell(
-                      onTap: () {
-                        switch (index) {
-                          case 0:
-                            //uegosdetalle(juegos[index].idJuego);
-                            break;
-                          case 1:
-                            //juegosdetalle(juegos[index].idJuego);
-                            break;
-                          case 2:
-                           //juegosdetalle(juegos[index].idJuego);
-                            break;
-                          default:
-                            break;
-                        }
-                      },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 8),
-                        width: 150,
-                        child: Image.asset(
-                          imagePaths[index],
-                          width: 150, 
-                          height: 150,
-                          fit: BoxFit.cover,
+                  margin: EdgeInsets.only(top: 6, left: 10, right: 6),
+                  height: 120,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 3,
+                    itemBuilder: (context, index) {
+                      List<String> imagePaths = [
+                        'assets/images/call.jpg',
+                        'assets/images/motal.jpg',
+                        'assets/images/persona5.jpg',
+                      ];
+                      return InkWell(
+                        onTap: () {
+                          switch (index) {
+                            case 0:
+                              //uegosdetalle(juegos[index].idJuego);
+                              break;
+                            case 1:
+                              //juegosdetalle(juegos[index].idJuego);
+                              break;
+                            case 2:
+                              //juegosdetalle(juegos[index].idJuego);
+                              break;
+                            default:
+                              break;
+                          }
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 8),
+                          width: 150,
+                          child: Image.asset(
+                            imagePaths[index],
+                            width: 150,
+                            height: 150,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
-              ),
               ],
             ),
           ),
-           Positioned(
+          Positioned(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -458,7 +452,7 @@ void juegosdetalle(String idJuego,imagePath) {
                   ),
                 ),
                 Container(
-                  height: 200,
+                  height: 180,
                   margin: EdgeInsets.symmetric(horizontal: 14),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -535,17 +529,17 @@ void juegosdetalle(String idJuego,imagePath) {
               ],
             ),
           ),
-
         ],
       ),
     );
   }
+
   void mostrarMensaje(String mensaje) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(mensaje),
-      duration: Duration(seconds: 2), 
-    ),
-  );
-}
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(mensaje),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
 }

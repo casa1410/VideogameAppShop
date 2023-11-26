@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 import 'Categoria.dart';
 import 'Home.dart';
 import 'Login.dart';
@@ -109,7 +108,7 @@ class _AyudaState extends State<Ayuda> {
                       ),
                       SizedBox(height: 5),
                       Text(
-                         'ㅤCerrar ㅤSesión',
+                        'ㅤCerrar ㅤㅤSesión',
                         style: TextStyle(fontSize: 12),
                       ),
                     ],
@@ -236,7 +235,8 @@ class _AyudaState extends State<Ayuda> {
                 ),
                 children: <TextSpan>[
                   TextSpan(
-                    text: 'Lea detenidamente nuestras condiciones de uso antes de realizar cualquier compra. ',
+                    text:
+                        'Lea detenidamente nuestras condiciones de uso antes de realizar cualquier compra. ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -250,7 +250,8 @@ class _AyudaState extends State<Ayuda> {
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        launch('blob:https://pinetools.com/8e17a1a9-9a18-4def-8535-30d1e3675342');
+                        launch(
+                            'blob:https://pinetools.com/8e17a1a9-9a18-4def-8535-30d1e3675342');
                       },
                   ),
                 ],

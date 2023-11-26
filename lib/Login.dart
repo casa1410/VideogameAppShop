@@ -18,68 +18,63 @@ class _LoginCreateState extends State<LoginCreate> {
   bool _showPassword = false;
 
   Future<void> _iniciarSesion() async {
-    if(_passwordController.text.isNotEmpty &&  _emailController.text.isNotEmpty){
+    if (_passwordController.text.isNotEmpty &&
+        _emailController.text.isNotEmpty) {
       final url = Uri.parse(BASE_URL + "/VGSAPI/loginUsuarios.php");
-    final response = await http.post(
-      url,
-      headers: <String, String>{
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'authorization': 'e1f602bf73cc96f53c10bb7f7953a438fb7b3c0a',
-      },
-      body: {
-        'email': _emailController.text,
-        'contrasena': _passwordController.text,
-      },
-    );
-    
-    
+      final response = await http.post(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'authorization': 'e1f602bf73cc96f53c10bb7f7953a438fb7b3c0a',
+        },
+        body: {
+          'email': _emailController.text,
+          'contrasena': _passwordController.text,
+        },
+      );
 
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> responseData = json.decode(response.body);
-      final String mensaje = responseData['mensaje'];
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        final String mensaje = responseData['mensaje'];
 
-      if (mensaje == 'Inicio de sesión exitoso') {
-           ScaffoldMessenger.of(context).showSnackBar(
+        if (mensaje == 'Inicio de sesión exitoso') {
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Inicio de sesion exitoso.'),
             ),
           );
-        ir_Home();
+          ir_Home();
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Por favor ingrese correctamente las credenciales'),
+            ),
+          );
+        }
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text('Por favor ingrese correctamente las credenciales'),
-    ),
-  );
+        print('Error de conexión al servidor');
       }
     } else {
-      print('Error de conexión al servidor');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Por favor ingrese correctamente las credenciales'),
+        ),
+      );
     }
-  }else{
-    ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text('Por favor ingrese correctamente las credenciales'),
-    ),
-  );
   }
-}
 
+  void ir_Home() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Inicio sesión exitosamente'),
+      ),
+    );
 
-void ir_Home() {
-  
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text('Inicio sesión exitosamente'),
-    ),
-  );
-
-  
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const Home()),
-  );
-}
-
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const Home()),
+    );
+  }
 
   void ir_Register() {
     Navigator.push(
@@ -164,7 +159,6 @@ void ir_Home() {
                               return null;
                             },
                           ),
-                          
                           SizedBox(height: 16),
                           TextFormField(
                             controller: _passwordController,
@@ -270,12 +264,13 @@ void ir_Home() {
       ),
     );
   }
+
   void mostrarMensaje(String mensaje) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(mensaje),
-      duration: Duration(seconds: 2), 
-    ),
-  );
-}
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(mensaje),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
 }

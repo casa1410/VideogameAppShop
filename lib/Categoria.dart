@@ -31,10 +31,7 @@ class Aventura extends StatefulWidget {
 }
 
 class _Aventura extends State<Aventura> {
-
-
-  
-   int _imagenIndex = 0;
+  int _imagenIndex = 0;
   List<String> _imagePaths = [
     'assets/images/Ima1.jpg',
     'assets/images/Ima2.jpg',
@@ -45,7 +42,6 @@ class _Aventura extends State<Aventura> {
   void initState() {
     super.initState();
 
-    
     Timer.periodic(Duration(seconds: 3), (Timer timer) {
       if (mounted) {
         setState(() {
@@ -54,8 +50,6 @@ class _Aventura extends State<Aventura> {
       }
     });
   }
-
-
 
   int _currentIndex = 0;
   List<JuegoInfo> juegos = [
@@ -67,7 +61,7 @@ class _Aventura extends State<Aventura> {
       precio: 'COP 300',
     ),
     JuegoInfo(
-       idJuego: '1',
+      idJuego: '1',
       imagePath: 'assets/images/zelda.jpg',
       nombreJuego: 'The Legend of Zelda',
       descripcionJuego: 'Recomendado, por que has jugado títulos con etiqueta',
@@ -82,17 +76,14 @@ class _Aventura extends State<Aventura> {
     ),
   ];
 
-
-  
-
   void juegosdetalle(String idJuego) {
-  //Navigator.push(
+    //Navigator.push(
     //context,
     //MaterialPageRoute(
-      //builder: (context) => Juego(idJuego),
+    //builder: (context) => Juego(idJuego),
     //),
-  //);
-}
+    //);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,22 +92,22 @@ class _Aventura extends State<Aventura> {
       appBar: AppBar(
         backgroundColor: Color(0xFF1B2838),
         elevation: 0,
-              title: Padding(
-              padding: EdgeInsets.only(left: 6), 
-              child: Text(
-                "VIDEOGAME STORE",
-                style: TextStyle(
+        title: Padding(
+          padding: EdgeInsets.only(left: 6),
+          child: Text(
+            "VIDEOGAME STORE",
+            style: TextStyle(
+              color: Colors.white,
+              shadows: [
+                Shadow(
                   color: Colors.white,
-                  shadows: [
-                    Shadow(
-                      color: Colors.white,
-                      blurRadius: 5,
-                      offset: Offset(2, 2),
-                    ),
-                  ],
+                  blurRadius: 5,
+                  offset: Offset(2, 2),
                 ),
-              ),
+              ],
             ),
+          ),
+        ),
         centerTitle: true,
         leading: Builder(
           builder: (BuildContext context) {
@@ -132,20 +123,20 @@ class _Aventura extends State<Aventura> {
           },
         ),
       ),
-     drawer: Drawer(
+      drawer: Drawer(
         width: 105,
         child: Container(
           child: Column(
             children: [
               Container(
-                height: 5, 
-                color: Color(0xFF1B2838), 
+                height: 5,
+                color: Color(0xFF1B2838),
               ),
               SizedBox(
-                height: 100, 
+                height: 100,
                 child: DrawerHeader(
                   decoration: BoxDecoration(
-                    color: Color(0xFF1B2838), 
+                    color: Color(0xFF1B2838),
                   ),
                   child: Text(
                     'Opciones',
@@ -160,10 +151,10 @@ class _Aventura extends State<Aventura> {
                 title: Column(
                   children: [
                     Icon(
-                      Icons.home, 
+                      Icons.home,
                       color: Color(0xFF1B2838),
                     ),
-                    SizedBox(height: 5), 
+                    SizedBox(height: 5),
                     Text(
                       'Ir a Home',
                       style: TextStyle(fontSize: 12),
@@ -171,7 +162,7 @@ class _Aventura extends State<Aventura> {
                   ],
                 ),
                 onTap: () {
-                 Navigator.push(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Home()),
                   );
@@ -202,12 +193,12 @@ class _Aventura extends State<Aventura> {
                 title: Column(
                   children: [
                     Icon(
-                      Icons.exit_to_app , 
+                      Icons.exit_to_app,
                       color: Color(0xFF1B2838),
                     ),
-                    SizedBox(height: 5), 
+                    SizedBox(height: 5),
                     Text(
-                      'ㅤCerrar ㅤSesión',
+                      'ㅤCerrar ㅤㅤSesión',
                       style: TextStyle(fontSize: 12),
                     ),
                   ],
@@ -217,7 +208,6 @@ class _Aventura extends State<Aventura> {
                     SnackBar(
                       content: Text('Cerró sesión exitosamente'),
                     ),
-                    
                   );
                   Navigator.push(
                     context,
@@ -357,51 +347,51 @@ class _Aventura extends State<Aventura> {
                   ),
                 ),
                 Container(
-                margin: EdgeInsets.only(top: 6, left: 10, right: 6),
-                height: 120,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    List<String> imagePaths = [
-                      'assets/images/persona5.jpg',
-                      'assets/images/zelda.jpg',  
-                      'assets/images/Pokemon.jpg',  
-                    ];
-                    return InkWell(
-                      onTap: () {
-                        switch (index) {
-                          case 0:
-                            juegosdetalle(juegos[index].idJuego);
-                            break;
-                          case 1:
-                            juegosdetalle(juegos[index].idJuego);
-                            break;
-                          case 2:
-                           juegosdetalle(juegos[index].idJuego);
-                            break;
-                          default:
-                            break;
-                        }
-                      },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 8),
-                        width: 150,
-                        child: Image.asset(
-                          imagePaths[index],
-                          width: 150, 
-                          height: 150,
-                          fit: BoxFit.cover,
+                  margin: EdgeInsets.only(top: 6, left: 10, right: 6),
+                  height: 120,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 3,
+                    itemBuilder: (context, index) {
+                      List<String> imagePaths = [
+                        'assets/images/persona5.jpg',
+                        'assets/images/zelda.jpg',
+                        'assets/images/Pokemon.jpg',
+                      ];
+                      return InkWell(
+                        onTap: () {
+                          switch (index) {
+                            case 0:
+                              juegosdetalle(juegos[index].idJuego);
+                              break;
+                            case 1:
+                              juegosdetalle(juegos[index].idJuego);
+                              break;
+                            case 2:
+                              juegosdetalle(juegos[index].idJuego);
+                              break;
+                            default:
+                              break;
+                          }
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 8),
+                          width: 150,
+                          child: Image.asset(
+                            imagePaths[index],
+                            width: 150,
+                            height: 150,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
-              ),
               ],
             ),
           ),
-           Positioned(
+          Positioned(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -416,7 +406,7 @@ class _Aventura extends State<Aventura> {
                   ),
                 ),
                 Container(
-                  height: 220,
+                  height: 180,
                   margin: EdgeInsets.symmetric(horizontal: 14),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -493,7 +483,6 @@ class _Aventura extends State<Aventura> {
               ],
             ),
           ),
-
         ],
       ),
     );

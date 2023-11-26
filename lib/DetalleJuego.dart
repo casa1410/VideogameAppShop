@@ -23,12 +23,12 @@ class _JuegoState extends State<Juego> {
 
   late Future<void> futureInformacionJuego = Future.value();
 
-  String nombre="";
-  String precio="";
-  String descripcion="";
-  String categoria="";
-  String genero="";
-  String fecha="";
+  String nombre = "";
+  String precio = "";
+  String descripcion = "";
+  String categoria = "";
+  String genero = "";
+  String fecha = "";
 
   @override
   void initState() {
@@ -36,22 +36,19 @@ class _JuegoState extends State<Juego> {
     futureInformacionJuego = obtenerInformacionJuego();
   }
 
-  
-
   Future<void> obtenerInformacionJuego() async {
     try {
       final response = await http.get(
-        
         Uri.parse('$url?id=${widget.idJuego}'),
         headers: <String, String>{
           'Content-Type': 'application/x-www-form-urlencoded',
           'authorization': 'e1f602bf73cc96f53c10bb7f7953a438fb7b3c0a',
         },
       );
-      
+
       print('Response status code: ${response.statusCode}');
       print('Response body: ${response.body}');
-         print(this.widget.idJuego);
+      print(this.widget.idJuego);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -73,13 +70,13 @@ class _JuegoState extends State<Juego> {
     }
   }
 
-  void carrito(String nombres,imagePath,precios) {
+  void carrito(String nombres, imagePath, precios) {
     String precios = precio;
     String nombres = nombre;
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PaymentScreen(nombres,imagePath,precios),
+        builder: (context) => PaymentScreen(nombres, imagePath, precios),
       ),
     );
   }
@@ -181,9 +178,7 @@ class _JuegoState extends State<Juego> {
                     ),
                   ],
                 ),
-                onTap: () {
-                  
-                },
+                onTap: () {},
               ),
               ListTile(
                 title: Column(
@@ -194,7 +189,7 @@ class _JuegoState extends State<Juego> {
                     ),
                     SizedBox(height: 5),
                     Text(
-                      'ㅤCerrar ㅤSesión',
+                      'ㅤCerrar ㅤㅤSesión',
                       style: TextStyle(fontSize: 12),
                     ),
                   ],
@@ -275,7 +270,6 @@ class _JuegoState extends State<Juego> {
                           height: 100,
                           fit: BoxFit.cover,
                         ),
-                        
                       ],
                     ),
                   ),
@@ -323,29 +317,29 @@ class _JuegoState extends State<Juego> {
                             ),
                             SizedBox(height: 8),
                             RichText(
-                          text: TextSpan(
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: 'Precio: ',
+                              text: TextSpan(
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold, 
+                                  color: Colors.white,
+                                  fontSize: 16,
                                 ),
+                                children: [
+                                  TextSpan(
+                                    text: 'Precio: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '$precio' + "COP",
+                                  ),
+                                ],
                               ),
-                              TextSpan(
-                                text: '$precio' + "COP",
-                              ),
-                            ],
-                          ),
-                        ),
+                            ),
                           ],
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            carrito(nombre,this.widget.imagePath,precio);
+                            carrito(nombre, this.widget.imagePath, precio);
                           },
                           style: ElevatedButton.styleFrom(
                             primary: Color.fromARGB(255, 98, 177, 100),
@@ -415,7 +409,7 @@ class _JuegoState extends State<Juego> {
                               TextSpan(
                                 text: 'Descripcion: ',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold, 
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                               TextSpan(
@@ -425,7 +419,7 @@ class _JuegoState extends State<Juego> {
                           ),
                         ),
                         SizedBox(height: 10),
-                           RichText(
+                        RichText(
                           text: TextSpan(
                             style: TextStyle(
                               color: Colors.white,
@@ -435,7 +429,7 @@ class _JuegoState extends State<Juego> {
                               TextSpan(
                                 text: 'Fecha de Publicacion:: ',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold, 
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                               TextSpan(
@@ -446,24 +440,24 @@ class _JuegoState extends State<Juego> {
                         ),
                         SizedBox(height: 10),
                         RichText(
-                              text: TextSpan(
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: 'Genero: ',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold, 
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: '$genero',
-                                  ),
-                                ],
-                              ),
+                          text: TextSpan(
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
                             ),
+                            children: [
+                              TextSpan(
+                                text: 'Genero: ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '$genero',
+                              ),
+                            ],
+                          ),
+                        ),
                         SizedBox(height: 10),
                         RichText(
                           text: TextSpan(
@@ -475,7 +469,7 @@ class _JuegoState extends State<Juego> {
                               TextSpan(
                                 text: 'Clasificacion: ',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold, 
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                               TextSpan(
