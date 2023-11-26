@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'Categoria.dart';
+import 'Home.dart';
 import 'Informacion.dart';
 import 'Login.dart';
 
@@ -97,6 +98,27 @@ class _FacturaScreenState extends State<FacturaScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Ayuda()),
+                  );
+                },
+              ),
+              ListTile(
+                title: Column(
+                  children: [
+                    Icon(
+                      Icons.home,
+                      color: Color(0xFF1B2838),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'Ir al Inicio',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Home()),
                   );
                 },
               ),

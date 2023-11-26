@@ -25,45 +25,56 @@ class RegistrarUsuarioState extends State<Registrar> {
   bool _showPassword = false;
 
   Future<void> _registrarUsuario() async {
-    final url = Uri.parse(BASE_URL + '/VGSAPI/registerUsuarios.php');
-    final response = await http.post(
-      url,
-      headers: <String, String>{
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'authorization': 'e1f602bf73cc96f53c10bb7f7953a438fb7b3c0a',
-      },
-      body: {
-        'nombre': _nombreController.text,
-        'apellido': _apellidoController.text,
-        'contrasena': _contrasenaController.text,
-        'email': _emailController.text,
-        'direccion': _direccionController.text,
-        'numero_telefono': _numeroCelularController.text,
-      },
-    );
+    if (_nombreController.text.isNotEmpty &&
+        _apellidoController.text.isNotEmpty &&
+        _contrasenaController.text.isNotEmpty &&
+        _emailController.text.isNotEmpty &&
+        _direccionController.text.isNotEmpty &&
+        _numeroCelularController.text.isNotEmpty) {
+      final url = Uri.parse(BASE_URL + '/VGSAPI/registerUsuarios.php');
+      final response = await http.post(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'authorization': 'e1f602bf73cc96f53c10bb7f7953a438fb7b3c0a',
+        },
+        body: {
+          'nombre': _nombreController.text,
+          'apellido': _apellidoController.text,
+          'contrasena': _contrasenaController.text,
+          'email': _emailController.text,
+          'direccion': _direccionController.text,
+          'numero_telefono': _numeroCelularController.text,
+        },
+      );
 
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> responseData = json.decode(response.body);
-      final String mensaje = responseData['mensaje'];
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        final String mensaje = responseData['mensaje'];
 
-      if (mensaje == 'Se registró un usuario') {
-            ScaffoldMessenger.of(context).showSnackBar(
+        if (mensaje == 'Se registró un usuario') {
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-             content: Text('Usuario Registrado exitosamente'),
-              ),
-            );
-        ir_Login();
+              content: Text('Usuario Registrado exitosamente'),
+            ),
+          );
+          ir_Login();
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error al Registrar Usuario'),
+            ),
+          );
+        }
       } else {
-       
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-             content: Text('Error al Registrar Usuario'),
-              ),
-            );
+        print('Error de conexión al servidor');
       }
     } else {
-     
-      print('Error de conexión al servidor');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Ingrese correctamente las credenciales'),
+        ),
+      );
     }
   }
 
@@ -405,12 +416,4 @@ class RegistrarUsuarioState extends State<Registrar> {
       ),
     );
   }
-    void mostrarMensaje(String mensaje) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(mensaje),
-      duration: Duration(seconds: 2), 
-    ),
-  );
-}
 }

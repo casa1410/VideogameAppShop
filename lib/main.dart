@@ -5,6 +5,7 @@ import 'package:videogameappshop/Login.dart';
 import 'package:videogameappshop/Registrar.dart';
 
 import 'DetalleJuego.dart';
+import 'Informacion.dart';
 import 'Pago.dart';
 
 void main() {
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: FacturaScreen(),
+      home: LoginCreate(),
     );
   }
 }

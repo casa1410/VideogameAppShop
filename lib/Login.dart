@@ -18,7 +18,7 @@ class _LoginCreateState extends State<LoginCreate> {
   bool _showPassword = false;
 
   Future<void> _iniciarSesion() async {
-    if(_passwordController != null &&  _emailController != null){
+    if(_passwordController.text.isNotEmpty &&  _emailController.text.isNotEmpty){
       final url = Uri.parse(BASE_URL + "/VGSAPI/loginUsuarios.php");
     final response = await http.post(
       url,
@@ -39,10 +39,18 @@ class _LoginCreateState extends State<LoginCreate> {
       final String mensaje = responseData['mensaje'];
 
       if (mensaje == 'Inicio de sesión exitoso') {
-        print('Inicio de sesión exitoso');
+           ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Inicio de sesion exitoso.'),
+            ),
+          );
         ir_Home();
       } else {
-        print('Error al iniciar sesión');
+        ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text('Por favor ingrese correctamente las credenciales'),
+    ),
+  );
       }
     } else {
       print('Error de conexión al servidor');
@@ -55,6 +63,7 @@ class _LoginCreateState extends State<LoginCreate> {
   );
   }
 }
+
 
 void ir_Home() {
   

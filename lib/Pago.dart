@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:videogameappshop/Home.dart';
 import 'package:videogameappshop/Login.dart';
 
+import 'Factura.dart';
+
 class JuegoInfo {
   final String imagePath;
   final String nombreJuego;
@@ -61,6 +63,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xFF1B2838),
       appBar: AppBar(
         backgroundColor: Color(0xFF1B2838),
@@ -156,6 +159,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ],
                 ),
                 onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Cerro sesion exitosamente'),
+                    ),
+                  );
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => LoginCreate()),
@@ -338,10 +346,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       Expanded(
                         child: TextField(
                           controller: _expiryDate,
-                          keyboardType: TextInputType.number,
-                          inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
+                          keyboardType: TextInputType.text,
+                          
                           decoration: InputDecoration(
                             labelText: 'Fecha',
                             filled: true,
@@ -377,11 +383,25 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Pago realizado con éxito'),
-                        ),
-                      );
+                 if (_cvv.text.isNotEmpty && _expiryDate.text.isNotEmpty && _visa.text.isNotEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Pago realizado con éxito'),
+                    ),
+                  );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FacturaScreen()),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Ingrese bien las credenciales'),
+                    ),
+                  );
+                }
+
+
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Color.fromARGB(255, 98, 177, 100),
